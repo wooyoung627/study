@@ -7,13 +7,13 @@ import java.util.List;
 // https://programmers.co.kr/learn/courses/30/lessons/92334?language=java
 public class lessons92334 {
     public static void main(String[] args) {
-        Solution solution = new Solution();
+        Solution92334 solution = new Solution92334();
         solution.solution(new String[]{"muzi", "frodo", "apeach", "neo"}, new String[]{"muzi frodo", "apeach frodo", "frodo neo", "muzi neo", "apeach muzi"},2);
         solution.solution(new String[]{"con", "ryan"}, new String[]{"ryan con", "ryan con", "ryan con", "ryan con"},2);
     }
 }
 
-class Solution {
+class Solution92334 {
     public int[] solution(String[] id_list, String[] reportParam, int k) {
         int[] answer = new int[id_list.length];
         String[] report = delDup(reportParam);
