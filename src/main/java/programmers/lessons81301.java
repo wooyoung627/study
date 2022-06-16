@@ -11,34 +11,34 @@ public class lessons81301 {
 class Solution81301 {
     public int solution(String s) {
         int answer = 0;
-        int begin = 0, end = 1;
-        String num = "";
+        StringBuilder sb = new StringBuilder();
 
         for(int i=0; i<s.length(); i++){
-            if(s.charAt(i) >= '0' && s.charAt(i) <= '9'){
-                if(!"".equals(num)){
-                    int n = getNum(num);
-                    answer = answer*10 + n;
-                    num = "";
-                }
+            if(sb.length() > 0 && getNum(sb.toString()) > -1){
+                answer = answer*10 + getNum(sb.toString());
+                sb = new StringBuilder();
+            }
 
+            if(isNum(s.charAt(i))){
                 answer = answer*10 + Integer.parseInt(s.substring(i, i+1));
             }else{
-                int n = getNum(num);
-                if(n != -1){
-                    answer = answer*10 + n;
-                    num = "";
-                }
-                num += s.substring(i, i+1);
+                sb.append(s.substring(i, i+1));
             }
         }
 
-        int n = getNum(num);
-        if(n != -1){
-            answer = answer*10 + n;
+        if(getNum(sb.toString()) != -1){
+            answer = answer*10 + getNum(sb.toString());
         }
 
+        s.replaceAll("", "");
+
         return answer;
+    }
+
+    public boolean isNum(Character str){
+        if(str >= '0' && str <= '9')
+            return true;
+        return false;
     }
 
     public int getNum(String str){
