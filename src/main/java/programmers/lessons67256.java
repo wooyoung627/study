@@ -3,7 +3,7 @@ package main.java.programmers;
 public class lessons67256 {
     public static void main(String[] args) {
         Solution67256 solution = new Solution67256();
-        System.out.println(solution.solution(new int[]{1, 3, 4, 5, 8, 2, 1, 4, 5, 9, 5}, "right"));
+        System.out.println(solution.solution(new int[]{7, 0, 8, 2, 8, 3, 1, 5, 7, 6, 2}, "left"));
     }
 }
 
@@ -12,7 +12,7 @@ class Solution67256 {
         String finger = "right".equals(hand) ? "R" : "L";
         StringBuilder sb = new StringBuilder();
 
-        int rCur= 10, lCur = 12;
+        int rCur= 12, lCur = 10;
 
         for(int number : numbers){
             if(number == 0) number = 11;
@@ -47,29 +47,27 @@ class Solution67256 {
         return sb.toString();
     }
 
+    int min;
+
     public double length(int from, int to){
-        int[][] arr = new int[4][3];
-        for(int i=0;i<arr[0].length; i++){
-            for(int j=0; j<arr.length; j++){
-                arr[j][i] = j*3+i+1;
-            }
-        }
+        min = Integer.MAX_VALUE;
+        dfs(from, to, 0);
+        return min;
+    }
 
-        int iFrom=0,jFrom=0;
-        int iTo=0, jTo = 0;
-
-        for(int i=0;i<arr[0].length; i++){
-            for(int j=0; j<arr.length; j++){
-                if(arr[j][i] == from){
-                    iFrom = i;
-                    jFrom = j;
-                }
-                if(arr[j][i] == to){
-                    iTo = i;
-                    jTo = j;
-                }
-            }
+    public void dfs(int from, int to, int num){
+        if(from == to){
+            min = Math.min(min, num);
+            return;
+        }else if(num >= min){
+            return;
         }
-        return Math.pow(iFrom - iTo, 2) + Math.pow(jFrom-jTo, 2);
+        if(from < to){
+            dfs(from+1, to, num + 1);
+            dfs(from+3, to, num + 1);
+        }else{
+            dfs(from-1, to, num + 1);
+            dfs(from-3, to, num + 1);
+        }
     }
 }
